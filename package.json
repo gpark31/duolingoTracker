@@ -1,0 +1,37 @@
+{
+  "name": "lesson-tracker",
+  "version": "1.0.0",
+  "description": "Duolingo lesson tracker (web + Android)",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "copy:core": "node -e \"require('fs').mkdirSync('app/vendor',{recursive:true});require('fs').copyFileSync('node_modules/@capacitor/core/dist/capacitor.js','app/vendor/capacitor.js')\"",
+    "sync": "npm run copy:core && cap sync android",
+    "open": "cap open android",
+    "test:relay": "python -m unittest discover -s tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gpark31/duolingoTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gpark31/duolingoTracker/issues"
+  },
+  "homepage": "https://github.com/gpark31/duolingoTracker#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/local-notifications": "^8.3.1",
+    "@capacitor/preferences": "^8.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.3"
+  },
+  "private": true
+}

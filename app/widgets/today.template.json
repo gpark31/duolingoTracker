@@ -1,0 +1,27 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+    { "type": "TextBlock", "text": "${title}", "size": "Small", "isSubtle": true },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        { "type": "Column", "width": "auto", "items": [
+          { "type": "TextBlock", "text": "${done}", "size": "ExtraLarge", "weight": "Bolder", "color": "Accent" }
+        ] },
+        { "type": "Column", "width": "stretch", "verticalContentAlignment": "Bottom", "items": [
+          { "type": "TextBlock", "text": "/ ${goal} lessons", "size": "Medium", "isSubtle": true }
+        ] }
+      ]
+    },
+    { "type": "TextBlock", "text": "${bar}", "fontType": "Monospace", "spacing": "Small" },
+    { "type": "TextBlock", "text": "${status}", "weight": "Bolder", "spacing": "Small" },
+    { "type": "TextBlock", "text": "${message}", "wrap": true, "maxLines": 3, "size": "Small" },
+    { "type": "TextBlock", "text": "${streak} · ${remaining}", "isSubtle": true, "size": "Small", "wrap": true }
+  ],
+  "actions": [
+    { "type": "Action.Execute", "title": "+1 lesson", "verb": "addLesson" },
+    { "type": "Action.Execute", "title": "Open", "verb": "open" }
+  ]
+}

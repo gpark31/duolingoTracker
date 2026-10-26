@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Same shapes as app/icons/icon.svg (512 design space), scaled into the 66dp adaptive-icon safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <group android:scaleX="0.19" android:scaleY="0.19" android:translateX="5.36" android:translateY="5.36">
+        <path android:pathData="M256,106 a150,150 0 1,1 0,300 a150,150 0 1,1 0,-300"
+            android:strokeColor="#1F5A54" android:strokeWidth="44" android:fillColor="#00000000"/>
+        <path android:pathData="M256,106 A150,150 0 1,1 106,256"
+            android:strokeColor="#FFFFFF" android:strokeWidth="44" android:strokeLineCap="round" android:fillColor="#00000000"/>
+        <path android:pathData="M196,262 L238,304 L320,214"
+            android:strokeColor="#FFFFFF" android:strokeWidth="40" android:strokeLineCap="round"
+            android:strokeLineJoin="round" android:fillColor="#00000000"/>
+    </group>
+</vector>

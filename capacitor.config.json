@@ -1,0 +1,9 @@
+{
+  "appId": "com.gayoung.lessontracker",
+  "appName": "Lesson Tracker",
+  "webDir": "app",
+  "plugins": {
+    "CapacitorHttp": { "enabled": true },
+    "LocalNotifications": { "smallIcon": "ic_stat_lesson", "iconColor": "#2F7A72" }
+  }
+}

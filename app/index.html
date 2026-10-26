@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lesson Tracker</title>
+<meta name="description" content="Track your Duolingo lessons against a daily goal.">
+<meta name="theme-color" content="#2F7A72">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow" id="course">Duolingo progress</div>
+      <h1>Lesson Tracker</h1>
+    </div>
+    <div class="chips" id="chips"></div>
+  </header>
+
+  <!-- Today: log lessons and minutes -->
+  <div class="page" id="page-today" role="tabpanel" aria-labelledby="nav-today">
+    <section class="card hero" id="todaycard" aria-live="polite"></section>
+    <section class="card" id="weektime"></section>
+  </div>
+
+  <!-- Progress: Week / Calendar / Graph -->
+  <div class="page" id="page-progress" role="tabpanel" aria-labelledby="nav-progress" hidden>
+    <section class="card">
+      <div class="tabs" role="tablist" aria-label="Progress views">
+        <button role="tab" id="tab-week" aria-controls="view" data-tab="week">Week</button>
+        <button role="tab" id="tab-cal" aria-controls="view" data-tab="cal">Calendar</button>
+        <button role="tab" id="tab-graph" aria-controls="view" data-tab="graph">Graph</button>
+      </div>
+      <div id="view" role="tabpanel"></div>
+    </section>
+  </div>
+
+  <!-- Summary: overall goal, study time, Duolingo stats -->
+  <div class="page" id="page-summary" role="tabpanel" aria-labelledby="nav-summary" hidden>
+    <!-- Overall goal: how many lessons are left and what that means per day -->
+    <section class="card" id="plan"></section>
+    <section class="card" id="timecard"></section>
+    <section class="card" id="duocard"></section>
+  </div>
+
+  <!-- Settings: Duolingo account, goals, reminders, data -->
+  <div class="page" id="page-settings" role="tabpanel" aria-labelledby="nav-settings" hidden>
+    <section class="card" id="sync"></section>
+
+    <section class="card" id="settings">
+      <form id="setform" autocomplete="off">
+        <h2>Goals and dates</h2>
+        <div class="set-grid">
+          <div class="field"><label for="perDay">Lessons per day</label><input id="perDay" name="perDay" type="number" min="1" max="100" inputmode="numeric"></div>
+          <div class="field"><label for="total">Total lessons to finish (0 = none)</label><input id="total" name="total" type="number" min="0" max="100000" inputmode="numeric"></div>
+          <div class="field"><label for="start">Counting from</label><input id="start" name="start" type="date"></div>
+          <div class="field"><label for="deadline">Finish by (optional)</label><input id="deadline" name="deadline" type="date"></div>
+          <div class="field"><label for="priorL">Lessons done before that</label><input id="priorL" name="priorL" type="number" min="0" inputmode="numeric"></div>
+          <div class="field"><label for="priorM">Minutes studied before that</label><input id="priorM" name="priorM" type="number" min="0" inputmode="numeric"></div>
+        </div>
+        <h3>Daily reminder</h3>
+        <div class="set-grid">
+          <label class="check"><input id="notifyOn" name="notifyOn" type="checkbox"> Send a reminder and encouragement every day</label>
+          <div class="field"><label for="notifyTime">Remind me at</label><input id="notifyTime" name="notifyTime" type="time"></div>
+        </div>
+        <div class="row">
+          <button class="btn ghost" type="button" id="testNote">Send a test notification</button>
+          <button class="btn ghost" type="button" id="exactBtn" hidden>Allow exact reminder times</button>
+        </div>
+        <p class="fine" id="notifyMsg" role="status"></p>
+      </form>
+      <div id="widgetBox" hidden>
+        <h3>Home-screen widget</h3>
+        <p class="fine">See today's lessons at a glance and add one with +1, without opening the app.</p>
+        <div class="row"><button class="btn ghost" type="button" id="pinWidget">Add widget to home screen</button></div>
+        <p class="fine" id="widgetMsg" role="status"></p>
+      </div>
+      <h3>Data</h3>
+      <div class="row">
+        <button class="btn ghost" type="button" id="exportBtn">Export backup</button>
+        <label class="btn ghost filebtn">Import backup<input type="file" id="importFile" accept="application/json"></label>
+        <button class="btn ghost danger" type="button" id="resetBtn">Erase everything</button>
+      </div>
+      <p class="fine" id="dataMsg" role="status"></p>
+    </section>
+
+    <footer>
+      <span>Saved on this device</span>
+      <span id="installHint"></span>
+    </footer>
+  </div>
+</div>
+
+<nav class="bottomnav" role="tablist" aria-label="Sections">
+  <button role="tab" id="nav-today" aria-controls="page-today" data-page="today">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Today</span></button>
+  <button role="tab" id="nav-progress" aria-controls="page-progress" data-page="progress">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span>Progress</span></button>
+  <button role="tab" id="nav-summary" aria-controls="page-summary" data-page="summary">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V12M12 20V5M19 20v-5"/></svg><span>Summary</span></button>
+  <button role="tab" id="nav-settings" aria-controls="page-settings" data-page="settings">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg><span>Settings</span></button>
+</nav>
+
+<dialog id="dayDlg">
+  <form method="dialog" id="dayForm">
+    <h2 id="dayTitle">Edit day</h2>
+    <div class="set-grid">
+      <div class="field"><label for="dayLessons">Lessons</label><input id="dayLessons" type="number" min="0" max="500" inputmode="numeric"></div>
+      <div class="field"><label for="dayMins">Minutes studied</label><input id="dayMins" type="number" min="0" max="1440" inputmode="numeric"></div>
+      <div class="field"><label for="daySecs">Seconds</label><input id="daySecs" type="number" min="0" max="59" inputmode="numeric"></div>
+    </div>
+    <p class="fine" id="daySrc"></p>
+    <div class="row end">
+      <button class="btn ghost" value="cancel" type="submit">Cancel</button>
+      <button class="btn" value="save" type="submit" id="daySave">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="vendor/capacitor.js"></script>
+<script src="core.js"></script>
+<script src="native.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

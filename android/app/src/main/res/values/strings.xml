@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Lesson Tracker</string>
+    <string name="title_activity_main">Lesson Tracker</string>
+    <string name="package_name">com.gayoung.lessontracker</string>
+    <string name="custom_url_scheme">com.gayoung.lessontracker</string>
+    <string name="widget_title">Today’s lessons</string>
+    <string name="widget_add">+1</string>
+    <string name="widget_add_desc">Add a lesson</string>
+    <string name="widget_empty">Open Lesson Tracker to set your daily goal.</string>
+    <string name="widget_description">Lessons done today against your daily goal, with a +1 button.</string>
+</resources>

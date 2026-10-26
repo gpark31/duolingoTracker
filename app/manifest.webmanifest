@@ -1,0 +1,32 @@
+{
+  "name": "Lesson Tracker for Duolingo",
+  "short_name": "Lessons",
+  "description": "Track your Duolingo lessons against a daily goal, with reminders and a widget.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F2F4F6",
+  "theme_color": "#2F7A72",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "widgets": [
+    {
+      "name": "Today's lesson goal",
+      "short_name": "Lesson goal",
+      "description": "Lessons done today against your daily goal, with a +1 button.",
+      "tag": "today",
+      "ms_ac_template": "widgets/today.template.json",
+      "data": "widgets/today.data.json",
+      "type": "application/json",
+      "auth": false,
+      "update": 900,
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }],
+      "screenshots": [{ "src": "icons/widget-screenshot.png", "sizes": "600x400", "label": "Today's lesson goal widget" }]
+    }
+  ]
+}
